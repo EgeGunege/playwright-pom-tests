@@ -20,8 +20,9 @@ export class APIUtils {
       },
     });
 
+    const body = await loginResponse.json().catch(() => ({}));
+    console.log('Response:', loginResponse.status(), body);
     expect(loginResponse.ok()).toBeTruthy();
-    const body = await loginResponse.json();
     return String(body?.token ?? '');
   }
 
