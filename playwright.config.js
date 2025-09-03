@@ -1,6 +1,8 @@
+// playwright.config.js
 import { defineConfig } from '@playwright/test';
 import 'dotenv/config';
 
+const isCI = !!process.env.CI;
 const isExternal = process.env.EXTERNAL_MONITOR === 'true';
 
 const WIDTH = 2560;
@@ -18,11 +20,11 @@ export default defineConfig({
   reporter: 'html',
   use: {
     browserName: 'chromium',
-    headless: false,
+    headless: isCI,
     screenshot: 'only-on-failure',
     trace: 'retain-on-failure',
     viewport: null,
-    launchOptions: { args: launchArgs },
+    launchOptions: isCI ? {} : { args: launchArgs },
   },
   projects: [
     {
