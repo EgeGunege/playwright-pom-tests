@@ -32,5 +32,4 @@ test('Security test request interception', async ({ page }) => {
   await myOrders.click();
   await viewButton.first().click();
   await expect(errorMessage).toHaveText('You are not authorize to view this order');
-  await page.pause();
 });

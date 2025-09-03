@@ -32,7 +32,12 @@ test.afterAll(async () => {
 
 test('Create order via API', async () => {
   const orderPayload = {
-    orders: [{ country: 'Canada', productOrderedId: PRODUCT_ID }],
+    orders: [
+      {
+        country: 'Canada',
+        productOrderedId: PRODUCT_ID,
+      },
+    ],
   };
 
   orderId = await apiUtils.createOrder(API_URL_CREATE_ORDER, token, orderPayload);

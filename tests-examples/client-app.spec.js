@@ -80,6 +80,4 @@ test.only('Client app test', async ({ page }) => {
   }
 
   await expect(emailTitle).toHaveText(' order summary ');
-
-  await page.pause();
 });

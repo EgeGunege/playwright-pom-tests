@@ -9,6 +9,5 @@ test.only('Control Browser tests', async ({ browser }) => {
   const [newPage] = await Promise.all([context.waitForEvent('page'), blinkingText.click()]);
   const domain = (await newPage.locator('.red').textContent()).split('@')[1].split(' ')[0];
   await userName.fill(domain);
-  page.pause();
   console.log(await userName.textContent());
 });

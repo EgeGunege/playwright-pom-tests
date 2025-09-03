@@ -22,7 +22,6 @@ test('Popup validations', async ({ page }) => {
   await alertConfirmButton.click();
 
   // await hoverButton.hover()
-  // await page.pause()
   // await topButton.hover()
   // await topButton.click()
 

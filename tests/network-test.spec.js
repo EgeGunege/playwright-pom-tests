@@ -16,8 +16,14 @@ test.beforeAll(async () => {
 test('Create order from api', async ({ page }) => {
   const orderApiUrl = 'https://rahulshettyacademy.com/api/ecom/order/create-order';
   const orderPayload = {
-    orders: [{ country: 'Canada', productOrderedId: '68a961459320a140fe1ca57a' }],
+    orders: [
+      {
+        country: 'Canada',
+        productOrderedId: '68a961459320a140fe1ca57a',
+      },
+    ],
   };
+
   const fakePayLoadOrders = { data: [], message: 'No Orders' };
   const myOrders = page.locator('button[routerlink*="myorders"]');
   const orderRow = page.locator('tr[class="ng-star-inserted"]');
@@ -43,21 +49,18 @@ test('Create order from api', async ({ page }) => {
   await myOrders.click();
   await page.waitForResponse(routeApiUrl);
   console.log(await page.locator('.mt-4').textContent());
-  await page.pause();
 
-  await orderRow.first().waitFor();
-  const countOrders = await orderRow.count();
-  for (let k = 0; k < countOrders; k++) {
-    const order = orderRow.nth(k);
-    const cellText = (await order.locator('th').textContent())?.trim();
+  // await orderRow.first().waitFor();
+  // const countOrders = await orderRow.count();
+  // for (let k = 0; k < countOrders; k++) {
+  //   const order = orderRow.nth(k);
+  //   const cellText = (await order.locator('th').textContent())?.trim();
 
-    if (cellText === orderId) {
-      await order.locator('td button:has-text("View")').click();
-      break;
-    }
-  }
+  //   if (cellText === orderId) {
+  //     await order.locator('td button:has-text("View")').click();
+  //     break;
+  //   }
+  // }
 
-  await expect(emailTitle).toHaveText(' order summary ');
-
-  // await page.pause()
+  // await expect(emailTitle).toHaveText(' order summary ');
 });

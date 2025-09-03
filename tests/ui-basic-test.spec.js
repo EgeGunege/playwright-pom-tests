@@ -24,7 +24,6 @@ test('First Playwright test', async ({ page }) => {
   await checkBox.uncheck();
   expect(await checkBox.isChecked()).toBeFalsy(); //await expect(checkBox).not.toBeChecked();
   await expect(blinkingText).toHaveAttribute('class', 'blinkingText');
-  // await page.pause()
 
   // await signButton.click()
   // const firstCardTitle = await page.locator('.card-body a').nth(0);

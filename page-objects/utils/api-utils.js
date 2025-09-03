@@ -13,15 +13,18 @@ export class APIUtils {
    * @returns {Promise<string>} login token
    */
   async getToken(url, userName, password) {
+    const payload = {
+      userEmail: userName,
+      userPassword: password,
+    };
+
     const loginResponse = await this.apiContext.post(url, {
-      json: {
-        userEmail: userName,
-        userPassword: password,
-      },
+      headers: { 'Content-Type': 'application/json' },
+      data: payload,
     });
 
     const body = await loginResponse.json().catch(() => ({}));
-    console.log('Response:', loginResponse.status(), body);
+
     expect(loginResponse.ok()).toBeTruthy();
     return String(body?.token ?? '');
   }
@@ -34,15 +37,17 @@ export class APIUtils {
    * @returns {Promise<string>} orderId
    */
   async createOrder(url, token, orderPayload) {
-    const auth = /^Bearer\s/i.test(token ?? '') ? token : `Bearer ${token}`;
-
     const orderResponse = await this.apiContext.post(url, {
-      json: orderPayload,
-      headers: { Authorization: auth },
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: token,
+      },
+      data: orderPayload,
     });
 
+    const body = await orderResponse.json().catch(() => ({}));
+
     expect(orderResponse.ok()).toBeTruthy();
-    const body = await orderResponse.json();
     return body.orders?.[0];
   }
 }
