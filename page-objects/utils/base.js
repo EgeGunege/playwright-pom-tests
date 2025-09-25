@@ -228,7 +228,6 @@ export class Base {
     return await this.page.waitForEvent(eventName, predicate, options);
   }
 
-  // Base içine: eski handleNextDialog'u bununla değiştirin
   /**
    * Handle the next dialog (alert/confirm/prompt) triggered by the given action.
    * Sets a one-time handler BEFORE triggering, so there's no race.
@@ -249,7 +248,7 @@ export class Base {
     };
     this.page.once('dialog', once);
     await trigger(); // click vs.
-    // küçük bir microtask bekleme, captured set edilmediyse
+    // a small microtask wait for if the captured not setted
     if (!captured) await new Promise((r) => setTimeout(r, 0));
     return captured ?? { type: '', message: '', defaultValue: '' };
   }

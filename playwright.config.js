@@ -1,4 +1,3 @@
-// playwright.config.js
 import { defineConfig } from '@playwright/test';
 import 'dotenv/config';
 
